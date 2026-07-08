@@ -23,9 +23,9 @@ const orderRoutes =
 const paymentRoutes =
   require("./routes/paymentRoutes");
 
-const serviceCategoryRoutes = require("./routes/serviceCategoryRoutes");
-const providerRoutes = require("./routes/providerRoutes");
-const bookingRoutes = require("./routes/bookingRoutes");  
+const serviceCategoryRoutes = require("./routes/ServiceCategoryRoutes");
+const providerRoutes = require("./routes/ProviderRoutes");
+const bookingRoutes = require("./routes/BookingRoutes");  
 
 // Middleware
 if (process.env.FRONTEND_URL) {
