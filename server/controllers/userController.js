@@ -162,27 +162,48 @@ const forgotPassword =
 
         `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
-      await sendEmail(
+      try {
 
-        user.email,
+        await sendEmail(
 
-        "Password Reset",
+          user.email,
 
-        `
+          "Password Reset",
 
-        <h2>Password Reset</h2>
+          `
 
-        <p>
-          Click the link below:
-        </p>
+          <h2>Password Reset</h2>
 
-        <a href="${resetUrl}">
-          Reset Password
-        </a>
+          <p>
+            Click the link below:
+          </p>
 
-        `
+          <a href="${resetUrl}">
+            Reset Password
+          </a>
 
-      );
+          `
+
+        );
+
+      } catch (emailError) {
+
+        if (process.env.ALLOW_RESET_LINK_RESPONSE === "true") {
+
+          return res.json({
+
+            message:
+              "Reset email could not be sent. Use the reset link below for prototype testing.",
+
+            resetUrl
+
+          });
+
+        }
+
+        throw emailError;
+
+      }
 
       res.json({
 

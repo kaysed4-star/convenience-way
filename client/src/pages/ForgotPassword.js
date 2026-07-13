@@ -6,6 +6,9 @@ function ForgotPassword() {
   const [email, setEmail] =
     useState("");
 
+  const [resetUrl, setResetUrl] =
+    useState("");
+
   const submitHandler =
     async (e) => {
 
@@ -13,11 +16,17 @@ function ForgotPassword() {
 
       try {
 
+        setResetUrl("");
+
         const response =
           await api.post(
             "/users/forgot-password",
             { email }
           );
+
+        if (response.data.resetUrl) {
+          setResetUrl(response.data.resetUrl);
+        }
 
         alert(response.data.message);
 
@@ -72,6 +81,31 @@ function ForgotPassword() {
         </button>
 
       </form>
+
+      {resetUrl && (
+
+        <div className="
+          mt-6
+          rounded
+          border
+          bg-yellow-50
+          p-4
+        ">
+
+          <p className="mb-3 font-bold">
+            Prototype reset link
+          </p>
+
+          <a
+            href={resetUrl}
+            className="text-blue-600 underline break-all"
+          >
+            {resetUrl}
+          </a>
+
+        </div>
+
+      )}
 
     </div>
 
