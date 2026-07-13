@@ -160,7 +160,7 @@ const forgotPassword =
 
       const resetUrl =
 
-        `http://localhost:3000/reset-password/${resetToken}`;
+        `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
 
       await sendEmail(
 
