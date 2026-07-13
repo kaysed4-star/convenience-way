@@ -18,6 +18,9 @@ const sendEmail = async (
         ? process.env.SMTP_SECURE === "true"
         : smtpPort === 465;
 
+    const smtpFamily =
+      Number(process.env.SMTP_FAMILY || 4);
+
     const transporter =
       nodemailer.createTransport({
 
@@ -30,6 +33,9 @@ const sendEmail = async (
         
         secure:
           smtpSecure,
+
+        family:
+          smtpFamily,
 
         connectionTimeout: 10000,
 
